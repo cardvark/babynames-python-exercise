@@ -43,9 +43,13 @@ def extract_names(filename):
     tempMatchYear = re.search(r'(Popularity\sin\s)(\d*)', htmlSource)
     sourceYear = tempMatchYear.group(2)
 
-
+    # calls 'findList' function to extract nested lists of rank and names.
     totalList = findList(r'(<tr align="right"><td>)(\d*)(</td><td>)(\w*)(</td><td>)(\w*)', htmlSource)
+    
+    # calls 'outputListMaker' to combine and sort the names.  Inserts year to beginning of list.
     outputList = outputListMaker(totalList, sourceYear)
+
+    # Converts list to formatted string.
     outputText = '\n'.join(outputList) + '\n'
     return outputText
 
@@ -53,6 +57,7 @@ def extract_names(filename):
 def outputListMaker(totalList, sourceYear):
     maleList = [x[1] + ' ' + x[0] for x in totalList]
     femList = [x[2] + ' ' + x[0] for x in totalList]
+
     combList = maleList + femList
     sortedCombList = sorted(combList)
     sortedCombList.insert(0, sourceYear)
