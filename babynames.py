@@ -91,18 +91,13 @@ def main():
         summary = True
         del args[0]
 
-    if summary:
-        # creates summary files if requested by user input.
-        for arg in args:
-            print 'opening file ' + arg
+    for arg in args:
+        if summary:
             outputFile = open(arg + '.summary.txt', 'w')
             outputFile.write(extract_names(arg))
             outputFile.close()
-    else:
-        # prints summary for each requested file.
-        for arg in args:
+        else:
             print extract_names(arg)
-
 
 if __name__ == '__main__':
     main()
